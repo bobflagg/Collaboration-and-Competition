@@ -5,7 +5,7 @@
 
 
 # Collaboration-and-Competition
-My submission for Project 5 from Udacity's Deep Reinforcement Learning Nanodegree Program](https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893).  
+My submission for Project 5 from [Udacity's Deep Reinforcement Learning Nanodegree Program](https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893).  
 
 ![Trained Agent][image1]
 
@@ -41,3 +41,25 @@ If you would like to run this code locally follow the instructions below.
 You can train an agent to solve the [Tennis Environment](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#tennis) by executing the cells in the 
 [Collaboration-and-Competition](https://nbviewer.jupyter.org/github/bobflagg/Collaboration-and-Competition/blob/master/01-Collaboration-and-Competition-with-POS.ipynb) notebook.  The code in that notebook is self-contained except for a few simple utility functions, which are saved in the Python module [util.py](https://github.com/bobflagg/Collaboration-and-Competition/blob/master/util.py).
 
+## Fragments
+
+## 3. Define the Actor and Critic Networks
+
+The actor and critic networks for my implementation of MMDDPG share the same architecture but have slightly different forward methods.
+
+## 4. Implement Ornstein-Uhlenbeck Noise
+
+
+## 5. Define a Deep Deterministic Policy Gradient Agent
+
+I'll model a tennis playing agent using [Deep Deterministic Policy Gradient](http://proceedings.mlr.press/v32/silver14.pdf) (DDPG).  The code below for DDPG is taken from the MADDPG-Lab of [Udacity's Deep Reinforcement Learning Nanodegree Program](https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893), which uses two update methods: a [soft update](https://github.com/ikostrikov/pytorch-ddpg-naf/blob/master/ddpg.py#L11), which moves a target network's parameters towards those of a source network, and a [hard update](https://github.com/ikostrikov/pytorch-ddpg-naf/blob/master/ddpg.py#L15), which copies source network parameters to a target network.
+
+
+## 6. Implement Multi-Agent Deep Deterministic Policy Gradient
+
+DDPG is applied to the multi-agent setting in the paper 
+[Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments](https://arxiv.org/abs/1706.02275). 
+The implementation below of Multi-Agent Deep Deterministic Policy Gradient (MADDPG) is based on code from the
+MADDPG-Lab of [Udacity's Deep Reinforcement Learning Nanodegree Program](https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893) but adapted to the [Tennis](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#tennis) environment.
+
+To encourage exploration when working when training a deterministic policy, we need a way to add some noise to action selection. The [Ornstein-Uhlenbeck process](https://github.com/rll/rllab/blob/master/rllab/exploration_strategies/ou_strategy.py) implemented below provides one way to achieve this.
