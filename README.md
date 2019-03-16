@@ -39,7 +39,7 @@ If you would like to run this code locally follow the instructions below.
 ## Instructions
 
 You can train an agent to solve the [Tennis Environment](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#tennis) by executing the cells in the 
-[Collaboration-and-Competition](https://nbviewer.jupyter.org/github/bobflagg/Collaboration-and-Competition/blob/master/01-Collaboration-and-Competition-with-POS.ipynb) notebook.  The code in that notebook is self-contained except for a few simple utility functions, which are saved in the Python module [util.py](https://github.com/bobflagg/Collaboration-and-Competition/blob/master/util.py).
+[01-Playing-Tennis-with-DDPG](https://nbviewer.jupyter.org/github/bobflagg/Collaboration-and-Competition/blob/master/01-Playing-Tennis-with-DDPG.ipynb) notebook.  The code in that notebook is self-contained except for a few simple utility functions, which are saved in the Python module [util.py](https://github.com/bobflagg/Collaboration-and-Competition/blob/master/util.py).
 
 ## Fragments
 
