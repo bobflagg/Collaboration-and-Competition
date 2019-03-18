@@ -7,7 +7,7 @@
 # Collaboration-and-Competition
 My submission for Project 5 from [Udacity's Deep Reinforcement Learning Nanodegree Program](https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893).  
 
-![Trained Agent][image1]
+I've posted a [demo video](https://youtu.be/x-tkCgWpoy0) of a smart agent in action, which shows how well the training solves this task, and a [plot of the scores](https://pasteboard.co/I61agw4.png) during training.
 
 ## Project Details
 
