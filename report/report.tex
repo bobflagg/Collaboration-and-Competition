@@ -93,11 +93,11 @@ I'll use
 {\em Deep Deterministic Policy Gradient}~\cite{Silver:2014:DPG:3044805.3044850} (DDPG) 
 and
 {\em Multi-Agent Deep Deterministic Policy Gradient}~\cite{DBLP:journals/corr/LoweWTHAM17} (MADDPG) 
-to solve the distributed version of the task which contains 20 identical agents, each with its own copy of the environment.
-Source code in Python, using PyTorch, is available on 
-\href{http://github.com}{\underline{github}} 
-in the repo 
-\href{https://github.com/bobflagg/Collaboration-and-Competition}{\underline{Collaboration-and-Competition}}.
+to solve the environment.
+Source code in Python, using PyTorch, is available 
+in the  
+\href{https://github.com/bobflagg/Collaboration-and-Competition}{\underline{Collaboration and Competition}}
+repo.
 
 
 
@@ -159,9 +159,8 @@ As illustrated in Figure 2, the key idea of MADDPG is to use \textbf{centralized
 
 In the DDPG solution to the 
 \href{https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#tennis}{\underline{Tennis}}
-environment I train a single agent that plays against itself. The code is in the notebook
-in the notebook 
-\href{https://nbviewer.jupyter.org/github/bobflagg/Collaboration-and-Competition/blob/master/01-Playing-Tennis-with-DDPG.ipynb}{\underline{Playing Tennis with DDPG}}.
+environment I train a single agent that plays against itself. The code is in the 
+\href{https://nbviewer.jupyter.org/github/bobflagg/Collaboration-and-Competition/blob/master/01-Playing-Tennis-with-DDPG.ipynb}{\underline{Playing Tennis with DDPG notebook}}.
 
 The key components and hyper-parameter settings are outlined below.
 \begin{itemize}
@@ -169,7 +168,7 @@ The key components and hyper-parameter settings are outlined below.
 	\item \textbf{Critic Network}: Three fully connected linear hidden layers. The first hidden layer has 256 units and has input size equal to the environment state-size. The second hidden layer has 256 units and input size equal to 256 + the environment action-size. The third hidden layer has 128 units. ReLu activation functions are used throughout  and batch normalization is applied after the first layer. The output of this network is one-dimensional.
 	\item \textbf{Hyperparameter Settings}: 
 	I trained for 1,500 episodes with a batch size of 128, discount factor of $\gamma = 0.99$, soft update weight of $\tau = 0.001$, actor learning rate of $0.0001$, 
-	 and critic learning rate of $0.001$.  To get DDPG to learn in a multi-agent environment I had to separate updating network parameters from adding samples to the replay buffer so that I could interleave these two steps in an appropriate proportion. After a bit of experimentation, I chose to update the networks 10 times after every 5 timesteps. 
+	 and critic learning rate of $0.001$.  To get DDPG to learn in a multi-agent environment I had to separate updating network parameters from adding samples to the replay buffer so that I could interleave these two steps in an appropriate proportion. After a bit of experimentation, I chose to update the networks 30 times after every 10 timesteps. 
 \end{itemize}
 
 With the above settings I achieved an average score of 0.68 for the final 100 episodes and even managed to get an average score above 0.8 briefly during training.
@@ -183,12 +182,9 @@ With the above settings I achieved an average score of 0.68 for the final 100 ep
 
 \section{Playing Tennis with MADDPG}
 The solution above is simple, stable and achieves a pretty high average score but it is not very satisfying from a multi-agent reinforcement learning point of view.  In general it will not be possible to use the same model instance for all agents since different agents may need to achieve different goals.
-In the notebook
-\href{https://nbviewer.jupyter.org/github/bobflagg/Collaboration-and-Competition/blob/master/02-Playing-Tennis-with-MADDPG.ipynb}{\underline{Playing Tennis with MADDPG}}
- I address that shortcoming by adapting DDPG to the multi-agent setting as in the paper {\em Multi-Agent Deep Deterministic Policy Gradient}~\cite{DBLP:journals/corr/LoweWTHAM17} (MADDPG). 
-
-Figure 3 below shows the results.  It's not really surprising that this approach does not do nearly as well as self-playing DDPG because it does not take advantage of special features of the Tennis environment but the average score did reach 0.52 so it is a solution.
-
+In the 
+\href{https://nbviewer.jupyter.org/github/bobflagg/Collaboration-and-Competition/blob/master/02-Playing-Tennis-with-MADDPG.ipynb}{\underline{Playing Tennis with MADDPG notebook}}
+ I address that shortcoming by adapting DDPG to the multi-agent setting as in the paper {\em Multi-Agent Deep Deterministic Policy Gradient}~\cite{DBLP:journals/corr/LoweWTHAM17} (MADDPG).   I was able to solve the tennis environment with this approach but the results were disappointing so I won't bother describing hyper-parameter settings here.  Figure 3 below shows the scores during training.  It's not really surprising that this approach does not do nearly as well as self-playing DDPG because it does not take advantage of special features of the Tennis environment but the average score did reach 0.52 so at least it solved the task.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=3.0in]{ma-scores}
@@ -196,13 +192,9 @@ Figure 3 below shows the results.  It's not really surprising that this approach
 	\caption{MADDPG Training Scores}
 \end{figure}
 
-
 \section{Improving Performance}
 
-Deep Deterministic Policy Gradient did well on this task.  To improve performance futher, I would do grid search on the hyper-parameters and network architectures for this approach.  Another interesting direction would be to try the {\em Soft Actor-Critic Algorthm}~\cite{DBLP:journals/corr/abs-1812-05905}.  The key idea 
-of this algorithm is to add an entropy constraint to the characterization of an optimal policy:
-	$$\pi^* =  \operatorname{arg\,max}_{\pi}\mathbb{E}_{\tau\sim\pi}\big[\sum_{t=0}^{\infty}\gamma^t\big(R_t+\alpha \mathcal{H} [\pi(\cdot|S_t)]\big)\big],$$
-which can result in more stable learning.
+Deep Deterministic Policy Gradient did well on this task.  To improve performance futher, I would do grid search on the hyper-parameters and network architectures for this approach.  Another interesting direction would modify the MADDPG agorithm by allowing each critic instance to know which agent it is criticizing; that is, feed the corresponding agent's observation and action into the netword separately from those of the other agents so the critic could focus on the appropriate agent's actions and observtions whild still having access to all observations and actions.
 
 \bibliographystyle{ACM-Reference-Format}
 %%\nocite{*}
